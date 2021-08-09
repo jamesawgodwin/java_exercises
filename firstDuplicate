@@ -1,0 +1,61 @@
+// Naive O(n^2) solution for finding first duplicate in an array of size N, with no values larger than N.lenght
+
+import java.io.*;
+import java.util.*;
+
+
+
+class Solution {
+  static int firstDup(int[]a) {
+    int min_second_index = a.length;
+    for (int i = 0; i < a.length; i++) {
+        for(int j = i+1; j < a.length; j++) {
+          if (a[i] == a[j]) {
+            min_second_index = Math.min(min_second_index, j);
+          }
+        }
+    }
+    if (min_second_index == a.length) {
+      return -1;
+    
+    } else{ 
+      return a[min_second_index];
+          }
+    
+    
+    }
+  public static void main(String[] args) {
+  int[] arr = {1,2,4,5,3,2,3};
+  System.out.println(firstDup(arr));
+  }
+}
+
+//Better solution using data structure to speed up time complexity
+// when you hear of duplicates or unique values, think of hashSets
+// constant time to access things in hashSet O(1)
+// 0(n) time solution, but space can be improved -> why do values need to be betwen 1 and length of array?
+ int [] firstDuplicate(int[] a) {
+ HashSet<Integer> hashSeen = new HashSet<>();
+ 
+for (int i = 0, i < a.length; i++) {
+    if(hashSeen.contains(a[i]) {
+      return a[i];
+     } else {
+      hashSeen.add(a[i]);
+      }
+    }
+    return -1;
+}
+}
+// O(n) time and very small space O(n)
+int firstDuplicate(int[] a) {
+  for(int i = 0; i < a.lenght; i++) { // need a[i] - 1 because .length and index position are off by one - e.g; an array of lenght 6 does not have index 6 (IndexOutOfBoundsException) has index 6-1 = 5 as max
+    if(a[Math.abs(a[i])-1] < 0) //because already visited the first instance of this number was turned into -i
+      return Math.abs(a[i]);
+      else {
+       a[Math.abs(a[i])-1] = -a[Math.abs(a[i])-1]; 
+      }
+  }
+  return -1;
+}
+
